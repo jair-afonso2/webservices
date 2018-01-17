@@ -19,7 +19,7 @@ namespace WebServicesCidades.Controllers
             return dao.Listar();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name="CidadeAtual")]
         public Cidades GetCidades(int id){
             return dao.Listar().Where(x => x.Id==id).FirstOrDefault();
         }
