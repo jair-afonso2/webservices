@@ -30,5 +30,19 @@ namespace WebServicesCidades.Controllers
             return CreatedAtRoute("CidadeAtual", new{id=cidades.Id}, cidades);
         }
 
+        [HttpPut]
+        public IActionResult Atualizar([FromBody] Cidades cidades)
+        {
+           dao.Atualizar(cidades);  
+           return CreatedAtRoute("CidadeAtual", new {id=cidades.Id}, cidades);                    
+
+        }
+
+        [HttpDelete("{id}")]
+        public bool Deletar(int id)
+        {
+            return dao.Deletar(id);
+        }
+
     }
 }

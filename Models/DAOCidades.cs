@@ -128,7 +128,7 @@ namespace WebServicesCidades.Models
             return resultado;
         }
 
-        public bool Atualizar(Cidades cidade)
+        public bool Atualizar(Cidades cidades)
         {
             bool resultado = false;
             try
@@ -138,12 +138,12 @@ namespace WebServicesCidades.Models
                 cmd = new SqlCommand();
 
                 cmd.Connection = con;
-
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "update Cidades(Nome,Estado,Habitantes) values (@n, @e, @h)";
-                cmd.Parameters.AddWithValue("@n", cidade.Nome);
-                cmd.Parameters.AddWithValue("@e", cidade.Estado);
-                cmd.Parameters.AddWithValue("@h", cidade.Habitantes);
+                cmd.CommandText = "update Cidades set Nome = @n, Estado = @e, Habitantes = @h where Id = @i";                
+                cmd.Parameters.AddWithValue("@n", cidades.Nome);
+                cmd.Parameters.AddWithValue("@e", cidades.Estado);
+                cmd.Parameters.AddWithValue("@h", cidades.Habitantes);
+                cmd.Parameters.AddWithValue("@i", cidades.Id);
 
                 int r = cmd.ExecuteNonQuery();
                 if (r > 0)
@@ -151,15 +151,18 @@ namespace WebServicesCidades.Models
 
                 cmd.Parameters.Clear();
             }
+
             catch (SqlException se)
             {
                 throw new Exception(se.Message);
             }
-            catch (Exception e)
+
+            catch (Exception ex)
             {
-                throw new Exception(e.Message);
+                throw new Exception(ex.Message);
             }
             finally
+
             {
                 con.Close();
             }
